@@ -36,8 +36,11 @@ app.post("/", upload.single("file"), (req, res) => {
     python = spawn("python", ["./scripts/text.py", fileName]); //for images of format jpg, jpeg, png
   } else if (extension === ".pdf") {
     python = spawn("python", ["./scripts/pdftoword.py", fileName]); //for pdf
+    // python = spawn("python", ["./scripts/pdftowordocr.py", fileName]); //for pdf using ocr
   } else if (extension === ".docx") {
     python = spawn("python", ["./scripts/doc.py", fileName]); //for docx
+  } else if (extension === ".xls" || extension === ".xlsx") {
+    python = spawn("python", ["./scripts/excel.py", fileName]);
   }
   python.stdout.on("data", function (data) {
     dataToSend = data.toString();
